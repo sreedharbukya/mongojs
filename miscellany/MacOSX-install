@@ -1,0 +1,4 @@
+brew tap homebrew/nginx
+brew install nginx-full websockify
+# --with-gzip-static
+# --with-websockify-module

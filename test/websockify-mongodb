@@ -1,0 +1,40 @@
+#!/usr/bin/env sh
+set -e
+set -u
+
+nginx_setPrefixPath()
+{
+	local path="$(dirname "$0")"
+	cd "$path" 1>/dev/null 2>/dev/null
+		nginx_prefixPath="$(pwd)"
+	cd - 1>/dev/null 2>/dev/null
+}
+
+main()
+{
+	local mongodbPort=27017
+	
+	nginx_setPrefixPath
+
+	nohup websockify 127.0.0.1:8081 127.0.0.1:$mongodbPort 1>"$nginx_prefixPath"/var/log/websockify.stdout.log 2>"$nginx_prefixPath"/var/log/websockify.stderr.log &
+	local websockifyPid=$!
+	printf '%s' "$websockifyPid" >"$nginx_prefixPath"/var/run/websockify.pid
+	
+	mongod \
+		--config "$nginx_prefixPath"/configuration/mongod.conf \
+		--bind_ip 127.0.0.1 \
+		--port $mongodbPort \
+		--nounixsocket \
+		--logpath "$nginx_prefixPath"/var/log/mongodb.log \
+		--logappend \
+		--timeStampFormat iso8601-utc \
+		--pidfilepath "$nginx_prefixPath"/var/run/mongodb.pid \
+		--dbpath "$nginx_prefixPath"/var/mongodb \
+		--directoryperdb \
+		--httpinterface \
+		--rest \
+		1>"$nginx_prefixPath"/var/log/mongodb.stdout.log \
+		2>"$nginx_prefixPath"/var/log/mongodb.stderr.log
+}
+
+main "$@"

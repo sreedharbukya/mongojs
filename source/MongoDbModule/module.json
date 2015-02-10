@@ -1,0 +1,21 @@
+{
+	"MongoDbModule":
+	[
+		"functionName",
+		"Object",
+		"Exception",
+		"TemplatedException",
+		"IllegalArgumentException",
+		"VirtualMethodException",
+		"template",
+		"Connection",
+		{
+			"V2ProtocolHandlerModule":
+			[
+				"init",
+				"AbstractMessage",
+				"MsgMessage"
+			]
+		}
+	]
+}
