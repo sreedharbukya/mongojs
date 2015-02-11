@@ -4,6 +4,6 @@ MongoDbModule.Exception.extend
 	
 	function VirtualMethodException()
 	{
-		VirtualMethodException.$.constructor.call(this, 'This is a virtual method that should have been overridden')
+		this.super(VirtualMethodException, 'This is a virtual method that should have been overridden'))
 	}
 )

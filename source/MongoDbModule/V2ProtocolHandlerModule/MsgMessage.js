@@ -6,7 +6,7 @@ module.AbstractMessage.extend
 
 	function MsgMessage(requestIdInt32, responseToInt32, messageCstring)
 	{
-		MsgMessage.$.constructor.call(this, requestIdInt32, responseToInt32, module.OpCodes.OP_MSG)
+		this.super(MsgMessage, requestIdInt32, responseToInt32, module.OpCodes.OP_MSG)
 	
 		this.messageCstring = messageCstring
 	},

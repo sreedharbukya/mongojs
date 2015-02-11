@@ -14,7 +14,11 @@
 			[
 				"init",
 				"AbstractMessage",
-				"MsgMessage"
+				"MsgMessage",
+				"BsonWriter",
+				"BsonWriterOverflowException",
+				"InvalidUtf16StringException"
+				"InvalidUnicodeCodePointException"
 			]
 		}
 	]
