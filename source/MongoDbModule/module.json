@@ -1,9 +1,6 @@
 {
 	"MongoDbModule":
 	[
-		"functionName",
-		"default",
-		"Object",
 		"Connection",
 		{
 			"V2ProtocolHandlerModule":
@@ -13,7 +10,7 @@
 				"MsgMessage",
 				"BsonWriter",
 				"BsonWriterOverflowException",
-				"InvalidUtf16StringException"
+				"InvalidUtf16StringException",
 				"InvalidUnicodeCodePointException"
 			]
 		}

@@ -1,4 +1,4 @@
-module.default = function _default(value, default)
+module.default = function _default(value, defaultValue)
 {
-	return value = typeof value !== 'undefined' ? value : default
+	return value = typeof value !== 'undefined' ? value : defaultValue
 }

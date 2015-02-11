@@ -1,5 +1,4 @@
-//http://bsonspec.org/spec.html
-MongoDbModule.Object.extend
+ClassModule.Object.extend
 (
 	module,
 
@@ -245,7 +244,7 @@ MongoDbModule.Object.extend
 			}
 			else if (value instanceof Blob || value instanceof File)
 			{
-				throw new MongoDbModule.IllegalArgumentException("value can not be a Blob or File", {})
+				throw new ClassModule.IllegalArgumentException("value can not be a Blob or File", {})
 				/*
 				var reader = new FileReader()
 				reader.onloadend = function(event)
@@ -263,14 +262,13 @@ MongoDbModule.Object.extend
 			// binary string
 			else if (value instanceof String || typeof value === 'string')
 			{
-				
+				throw new ClassModule.IllegalArgumentException("Binary strings are not currently supported", {})
 			}
-				// Array, Arguments, ?String
+			else if (value instanceof Array || value instanceof Arguments)
+			{
+				throw new ClassModule.IllegalArgumentException("Array and Arguments are not currently supported", {})
+			}
 		}
-		
-		// DataView and 
-		// TypedArray is NOT a common ancestor for Int32Array et al !
-		var 
 	},
 	
 	function writeBinary(value, subtype)
@@ -289,7 +287,7 @@ module.BinarySubtypes =
 	Md5: 0x05,
 	UserDefined: 0x80
 }
-
+//http://bsonspec.org/spec.html
 /*
 subtype 	::= 	"\x00" 	Generic binary subtype
 	| 	"\x01" 	Function

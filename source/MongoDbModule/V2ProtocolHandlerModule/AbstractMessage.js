@@ -1,4 +1,4 @@
-MongoDbModule.Object.extend
+ClassModule.Object.extend
 (
 	module,
 
@@ -26,6 +26,6 @@ MongoDbModule.Object.extend
 
 	function writeContentsBson(writer)
 	{
-		throw new MongoDbModule.VirtualMethodException()
+		throw new ClassModule.VirtualMethodException()
 	}
 )
