@@ -12,23 +12,19 @@ MongoDbModule.Object.extend
 
 	function writeBson(writer)
 	{
-		var messageLengthOffset = writer.skipInt32()
+		var messageLengthOffset = writer.offset
+		var lengthStartsFromOffset = writer.skipInt32()
 		writer.writeInt32(this.requestIdInt32)
 		writer.writeInt32(this.responseToInt32)
 		writer.writeInt32(this.opCodeInt32)
 		
-		var fromX = offset + requiredSpace
-		fromX = this.writeContentsBson(arrayBuffer, fromX)
-	
-		// go back and fill in messageLength
-		var messageLengthInt32 = fromX - offset - 4
-		writer.setInt32At(messageLengthOffset, messageLengthInt32)
-		this.messageLengthInt32 = messageLengthInt32
-	
-		return fromX
+		this.writeContentsBson(writer)
+		
+		this.messageLengthInt32 = (messageLengthInt32 = writer.offset - lengthStartsFromOffset)
+		writer.writeInt32At(messageLengthOffset, messageLengthInt32)
 	},
 
-	function writeContentsBson(arrayBuffer, offset)
+	function writeContentsBson(writer)
 	{
 		throw new MongoDbModule.VirtualMethodException()
 	}

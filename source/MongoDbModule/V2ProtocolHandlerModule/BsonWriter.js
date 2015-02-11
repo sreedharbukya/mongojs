@@ -23,9 +23,8 @@ MongoDbModule.Object.extend
 	
 	function skip(count)
 	{
-		var previousOffset = this.offset
 		this.offset += count
-		return previousOffset;
+		return this.offset;
 	},
 	
 	function skipByte()
