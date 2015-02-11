@@ -1,4 +1,4 @@
-MongoDbModule.Exception.extend
+module.Exception.extend
 (
 	module,
 	

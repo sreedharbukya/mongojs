@@ -2,6 +2,7 @@
 	"MongoDbModule":
 	[
 		"functionName",
+		"default",
 		"Object",
 		"Exception",
 		"TemplatedException",

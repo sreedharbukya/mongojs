@@ -1,4 +1,4 @@
-MongoDbModule.Object.extend
+module.Object.extend
 (
 	module,
 	

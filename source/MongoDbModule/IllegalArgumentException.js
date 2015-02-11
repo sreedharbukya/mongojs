@@ -1,10 +1,10 @@
-MongoDbModule.TemplatedException.extend
+module.TemplatedException.extend
 (
 	module,
 	
 	function IllegalArgumentException(templatedMessage, formatArguments)
 	{
-		this.super(IllegalArgumentException, templatedMessage, formatArguments)
+		this.super(IllegalArgumentException, templatedMessage, module.default(formatArguments, {}))
 		
 		this.hello()
 	},

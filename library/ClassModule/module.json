@@ -2,6 +2,7 @@
 	"ClassModule":
 	[
 		"functionName",
+		"default",
 		"Object"
 	]
 }

@@ -215,5 +215,109 @@ MongoDbModule.Object.extend
 	function writeCstring(value)
 	{
 		return (this.offset = this.writeCstringAt(value, this.offset))
+	},
+	
+	// binary 	::= 	int32 subtype (byte*) 	Binary - The int32 is the number of bytes in the (byte*).
+	function writeBinaryAt(value, subtype, offset)
+	{
+		var buffer
+		var bufferOffset
+		var bufferLength
+		if (value instanceof ArrayBuffer)
+		{
+			buffer = value
+			bufferOffset = 0
+			bufferLength = value.byteLength
+		}
+		else if (value instanceof DataView)
+		{
+			buffer = value.buffer
+			bufferOffset = value.byteOffset
+			bufferLength = value.byteLength
+		}
+		else
+		{
+			buffer = subbtype.buffer
+			if (buffer instanceof ArrayBuffer)
+			{
+				bufferOffset = value.byteOffset
+				bufferLength = value.byteLength
+			}
+			else if (value instanceof Blob || value instanceof File)
+			{
+				throw new MongoDbModule.IllegalArgumentException("value can not be a Blob or File", {})
+				/*
+				var reader = new FileReader()
+				reader.onloadend = function(event)
+				{
+					buffer = reader.result
+					bufferOffset = 0
+					bufferLength = buffer.byteLength
+				}
+				reader.readAsArrayBuffer(value)
+				
+				since events aren't asynchronous, there's no way to apuse for the Blob to be read
+				*/
+				
+			}
+			// binary string
+			else if (value instanceof String || typeof value === 'string')
+			{
+				
+			}
+				// Array, Arguments, ?String
+		}
+		
+		// DataView and 
+		// TypedArray is NOT a common ancestor for Int32Array et al !
+		var 
+	},
+	
+	function writeBinary(value, subtype)
+	{
+		return (this.offset = this.writeBinaryAt(value, subtype, this.offset))
 	}
 )
+
+module.BinarySubtypes =
+{
+	Generic: 0x00,
+	Function: 0x01,
+	BinaryOld: 0x02,
+	UuidOld: 0x03,
+	Uuid: 0x04,
+	Md5: 0x05,
+	UserDefined: 0x80
+}
+
+/*
+subtype 	::= 	"\x00" 	Generic binary subtype
+	| 	"\x01" 	Function
+	| 	"\x02" 	Binary (Old)
+	| 	"\x03" 	UUID (Old)
+	| 	"\x04" 	UUID
+	| 	"\x05" 	MD5
+	| 	"\x80" 	User defined
+/*
+element 	::= 	"\x01" e_name double 	Floating point
+	| 	"\x02" e_name string 	UTF-8 string
+	| 	"\x03" e_name document 	Embedded document
+	| 	"\x04" e_name document 	Array
+	| 	"\x05" e_name binary 	Binary data
+	| 	"\x06" e_name 	Undefined — Deprecated
+	| 	"\x07" e_name (byte*12) 	ObjectId
+	| 	"\x08" e_name "\x00" 	Boolean "false"
+	| 	"\x08" e_name "\x01" 	Boolean "true"
+	| 	"\x09" e_name int64 	UTC datetime
+	| 	"\x0A" e_name 	Null value
+	| 	"\x0B" e_name cstring cstring 	Regular expression - The first cstring is the regex pattern, the second is the regex options string. Options are identified by characters, which must be stored in alphabetical order. Valid options are 'i' for case insensitive matching, 'm' for multiline matching, 'x' for verbose mode, 'l' to make \w, \W, etc. locale dependent, 's' for dotall mode ('.' matches everything), and 'u' to make \w, \W, etc. match unicode.
+	| 	"\x0C" e_name string (byte*12) 	DBPointer — Deprecated
+	| 	"\x0D" e_name string 	JavaScript code
+	| 	"\x0E" e_name string 	Deprecated
+	| 	"\x0F" e_name code_w_s 	JavaScript code w/ scope
+	| 	"\x10" e_name int32 	32-bit Integer
+	| 	"\x11" e_name int64 	Timestamp
+	| 	"\x12" e_name int64 	64-bit integer
+	| 	"\xFF" e_name 	Min key
+	| 	"\x7F" e_name 	Max key
+*/
