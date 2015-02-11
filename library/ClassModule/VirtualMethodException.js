@@ -4,6 +4,6 @@ module.Exception.extend
 	
 	function VirtualMethodException()
 	{
-		this.super(VirtualMethodException, 'This is a virtual method that should have been overridden'))
+		this.super(VirtualMethodException, 'This is a virtual method that should have been overridden')
 	}
 )
