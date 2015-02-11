@@ -4,11 +4,6 @@
 		"functionName",
 		"default",
 		"Object",
-		"Exception",
-		"TemplatedException",
-		"IllegalArgumentException",
-		"VirtualMethodException",
-		"template",
 		"Connection",
 		{
 			"V2ProtocolHandlerModule":

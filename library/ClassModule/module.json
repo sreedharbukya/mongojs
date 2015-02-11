@@ -3,6 +3,11 @@
 	[
 		"functionName",
 		"default",
-		"Object"
+		"template",
+		"Object",
+		"Exception",
+		"TemplatedException",
+		"IllegalArgumentException",
+		"VirtualMethodException"
 	]
 }

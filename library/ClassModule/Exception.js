@@ -4,7 +4,7 @@ module.Object.extend
 	
 	function Exception(message)
 	{
-		Exception.$.constructor.call(this)
+		this.super(Exception)
 		this.name = this.constructor.className
 		this.message = message
 	},
